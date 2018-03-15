@@ -26,7 +26,6 @@ Image star(starData);
 
 
 bool titleScreenImageExists;
-bool displayName;
 bool detailGameIsFav;
 
 const char* msg_a_start;
@@ -39,29 +38,7 @@ void loadDetailedView() {
 	strcpy(nameBuffer, getCurrentGameFolder());
 	strcpy(nameBuffer + strlen(nameBuffer), "/TITLESCREEN.BMP");
 	titleScreenImageExists = SD.exists(nameBuffer);
-	displayName = !titleScreenImageExists;
-	if (!titleScreenImageExists) {
-		// try to display the first BMP in the rec folder
-		strcpy(nameBuffer, getCurrentGameFolder());
-		strcpy(nameBuffer + strlen(nameBuffer), "/REC/");
-		uint16_t i = strlen(nameBuffer);
-		if (SD.exists(nameBuffer)) {
-			File dir_walk = SD.open(nameBuffer);
-			File entry;
-			while (entry = dir_walk.openNextFile()) {
-				if (!entry.isFile()) {
-					continue;
-				}
-				entry.getName(nameBuffer + i, NAMEBUFFER_LENGTH - i);
-				if (!strstr(nameBuffer, ".GMV") && !strstr(nameBuffer, ".gmv")) {
-					continue;
-				}
-				titleScreenImageExists = true;
-				displayName = true;
-				break;
-			}
-		}
-	}
+	
 	if (titleScreenImageExists) {
 		gb.display.setColor(WHITE, BLACK);
 		gb.display.setCursor(0, 0);
@@ -113,20 +90,12 @@ void detailedView() {
 		} else {
 			gb.display.clear();
 		}
-   
-    //blinking border
-    if ((gb.frameCount % 8) >= 4) {
-      gb.display.setColor(BROWN);
-    } else {
-      gb.display.setColor(BLACK);
-    }
-    gb.display.drawRect(0, 0, gb.display.width(), gb.display.height());
 		
 		if (detailGameIsFav) {
 			gb.display.drawImage(0, 0, star, star.width()*gb.display.fontSize, star.height()*gb.display.fontSize);
 		}
 		
-		if (displayName) {
+		if (!titleScreenImageExists) {
 			// center bar
 			gb.display.setColor(BROWN);
 			gb.display.fillRect(0, 15*gb.display.fontSize, 80*gb.display.fontSize, 9*gb.display.fontSize);
@@ -144,12 +113,12 @@ void detailedView() {
 			gb.display.println(getCurrentGameFolder() + 1);
 		}
 		
+		//blinking border
+		gb.display.setColor((gb.frameCount % 8) >= 4 ? BROWN : BLACK);
+		gb.display.drawRect(0, 0, gb.display.width(), gb.display.height());
+		
 		//blinking A button icon
-		if((gb.frameCount%8) < 4){
-			buttonsIcons.setFrame(0); //button A pressed
-		} else {
-			buttonsIcons.setFrame(1); //button A released
-		}
+		buttonsIcons.setFrame((gb.frameCount%8) >= 4);
 		uint8_t scale = gb.display.width() == 80 ? 1 : 2;
 		uint8_t w = buttonsIcons.width() * scale;
 		uint8_t h = buttonsIcons.height() * scale;
@@ -157,27 +126,6 @@ void detailedView() {
 		uint8_t y = 2*gb.display.height()/3 - h;
 		gb.display.drawImage(x, y, buttonsIcons, w, h);
 
-    /*
-    //browse games
-		if (gb.buttons.repeat(BUTTON_LEFT, 4)) {
-			if (currentGame > 0) {
-				currentGame--;
-			} else {
-				currentGame = totalGames - 1;
-			}
-			loadDetailedView();
-		}
-		
-		if (gb.buttons.repeat(BUTTON_RIGHT, 4)) {
-			if (currentGame < totalGames - 1) {
-				currentGame++;
-			} else {
-				currentGame = 0;
-			}
-			loadDetailedView();
-		}
-   */
-		
 		if (gb.buttons.pressed(BUTTON_A)) {
 			loadGame();
 		}
