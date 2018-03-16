@@ -5,7 +5,7 @@
 
 const MultiLang lang_press_a_continue[] = {
 	{LANG_EN, "Press A to continue"},
-	{LANG_DE, "Drï¿½cke A um fortzufahren"},
+	{LANG_DE, "Drücke A um fortzufahren"},
 	{LANG_FR, "Appuyez sur A pour continuer"},
 };
 
@@ -18,7 +18,7 @@ const MultiLang lang_loading[] = {
 const MultiLang lang_no_games[] = {
 	{LANG_EN, "No games found!"},
 	{LANG_DE, "Keine Spiele gefunden!"},
-	{LANG_FR, "Aucun jeu trouvï¿½!"},
+	{LANG_FR, "Aucun jeu trouvé!"},
 };
 
 const MultiLang lang_select[] = {
@@ -29,7 +29,7 @@ const MultiLang lang_select[] = {
 
 const MultiLang lang_browse[] = {
 	{LANG_EN, "BROWSE"},
-	{LANG_DE, "Wï¿½HLE"},
+	{LANG_DE, "WÄHLE"},
 	{LANG_FR, "PARCOURIR"},
 };
 
@@ -42,12 +42,12 @@ const MultiLang lang_settings[] = {
 const MultiLang lang_settings_default_name[] = {
 	{LANG_EN, "Default name"},
 	{LANG_DE, "Standardname"},
-	{LANG_FR, "Nom par dï¿½faut"},
+	{LANG_FR, "Nom par défaut"},
 };
 
 const MultiLang lang_settings_enter_bootloader[] = {
 	{LANG_EN, "Enter bootloader"},
-	{LANG_DE, "ï¿½ffne Bootloader"},
+	{LANG_DE, "Öffne Bootloader"},
 	{LANG_FR, "Enter bootloader"},
 };
 
@@ -59,7 +59,7 @@ const MultiLang lang_settings_language[] = {
 
 const MultiLang lang_settings_back[] = {
 	{LANG_EN, "Back"},
-	{LANG_DE, "Zurï¿½ck"},
+	{LANG_DE, "Zurück"},
 	{LANG_FR, "Retour"},
 };
 
@@ -83,12 +83,12 @@ const MultiLang lang_bootloader[] = {
 
 const MultiLang lang_fav_added[] = {
 	{LANG_EN, "Added to favorites"},
-	{LANG_DE, "Favorit hinzugefï¿½gt"},
-	{LANG_FR, "Ajoutï¿½ aux favoris"},
+	{LANG_DE, "Favorit hinzugefügt"},
+	{LANG_FR, "Ajouté aux favoris"},
 };
 
 const MultiLang lang_fav_removed[] = {
 	{LANG_EN, "Removed favorite"},
 	{LANG_DE, "Favorit entfernt"},
-	{LANG_FR, "Retirï¿½ des favoris"},
+	{LANG_FR, "Retiré des favoris"},
 };
