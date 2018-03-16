@@ -7,12 +7,13 @@ const uint8_t settings_cursorPositions[] = {
 };
 const uint8_t settings_numCursorPositions = 4;
 
-const uint8_t numLangEntries = 4;
+const uint8_t numLangEntries = 5;
 const MultiLang langEntries[numLangEntries] = {
 	{LANG_EN, "en"},
 	{LANG_FR, "fr"},
 	{LANG_DE, "de"},
 	{LANG_ES, "es"},
+	{LANG_NL, "nl"},
 };
 
 
