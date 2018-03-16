@@ -21,18 +21,6 @@ const MultiLang lang_no_games[] = {
 	{LANG_FR, "Aucun jeu trouvé!"},
 };
 
-const MultiLang lang_select[] = {
-	{LANG_EN, "SELECT"},
-	{LANG_DE, "LADE"},
-	{LANG_FR, "CHOISIR"},
-};
-
-const MultiLang lang_browse[] = {
-	{LANG_EN, "BROWSE"},
-	{LANG_DE, "WÄHLE"},
-	{LANG_FR, "PARCOURIR"},
-};
-
 const MultiLang lang_settings[] = {
 	{LANG_EN, "Settings"},
 	{LANG_DE, "Einstellungen"},
@@ -72,13 +60,13 @@ const MultiLang lang_versions[] = {
 const MultiLang lang_loader[] = {
 	{LANG_EN, "Loader"},
 	{LANG_DE, "Loader"},
-	{LANG_DE, "Loader"},
+	{LANG_FR, "Loader"},
 };
 
 const MultiLang lang_bootloader[] = {
 	{LANG_EN, "Bootloader"},
 	{LANG_DE, "Bootloader"},
-	{LANG_DE, "Bootloader"},
+	{LANG_FR, "Bootloader"},
 };
 
 const MultiLang lang_fav_added[] = {
