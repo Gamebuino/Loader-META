@@ -5,9 +5,9 @@
 
 const MultiLang lang_press_a_continue[] = {
 	{LANG_EN, "Press A to continue"},
-	{LANG_DE, "Drücke A um fortzufahren"},
+	{LANG_DE, "DrÃ¼cke A um fortzufahren"},
 	{LANG_FR, "Appuyez sur A pour continuer"},
-	{LANG_ES, "Presione a para continuar"},
+	{LANG_ES, "Presione A para continuar"},
 	{LANG_NL, "Druk A om verder te gaan"},
 };
 
@@ -22,8 +22,8 @@ const MultiLang lang_loading[] = {
 const MultiLang lang_no_games[] = {
 	{LANG_EN, "No games found!"},
 	{LANG_DE, "Keine Spiele gefunden!"},
-	{LANG_FR, "Aucun jeu trouvé!"},
-	{LANG_ES, "No se han encontrado juegos"},
+	{LANG_FR, "Aucun jeu trouvÃ©!"},
+	{LANG_ES, "Â¡No se han encontrado juegos!"},
 	{LANG_NL, "Geen spellen gevonden! "},
 };
 
@@ -38,16 +38,16 @@ const MultiLang lang_settings[] = {
 const MultiLang lang_settings_default_name[] = {
 	{LANG_EN, "Default name"},
 	{LANG_DE, "Standardname"},
-	{LANG_FR, "Nom par défaut"},
-	{LANG_ES, "Nombre estándar"},
+	{LANG_FR, "Nom par dÃ©faut"},
+	{LANG_ES, "Nombre por defecto"},
 	{LANG_NL, "Standaard naam"},
 };
 
 const MultiLang lang_settings_enter_bootloader[] = {
 	{LANG_EN, "Enter bootloader"},
-	{LANG_DE, "Öffne Bootloader"},
+	{LANG_DE, "Ã–ffne Bootloader"},
 	{LANG_FR, "Enter bootloader"},
-	{LANG_ES, "Entrar bootloader"},
+	{LANG_ES, "Entrar al bootloader"},
 	{LANG_NL, "Open bootloader"},
 };
 
@@ -61,9 +61,9 @@ const MultiLang lang_settings_language[] = {
 
 const MultiLang lang_settings_back[] = {
 	{LANG_EN, "Back"},
-	{LANG_DE, "Zurück"},
+	{LANG_DE, "ZurÃ¼ck"},
 	{LANG_FR, "Retour"},
-	{LANG_ES, "Espalda"},
+	{LANG_ES, "Atras"},
 	{LANG_NL, "Terug"},
 };
 
@@ -93,16 +93,16 @@ const MultiLang lang_bootloader[] = {
 
 const MultiLang lang_fav_added[] = {
 	{LANG_EN, "Added to favorites"},
-	{LANG_DE, "Favorit hinzugefügt"},
-	{LANG_FR, "Ajouté aux favoris"},
-	{LANG_ES, "Favorito agregado"},
+	{LANG_DE, "Favorit hinzugefÃ¼gt"},
+	{LANG_FR, "AjoutÃ© aux favoris"},
+	{LANG_ES, "Agregado a favoritos"},
 	{LANG_NL, "Toegevoegd aan favs"},
 };
 
 const MultiLang lang_fav_removed[] = {
 	{LANG_EN, "Removed favorite"},
 	{LANG_DE, "Favorit entfernt"},
-	{LANG_FR, "Retiré des favoris"},
-	{LANG_ES, "Favorito eliminado"},
+	{LANG_FR, "RetirÃ© des favoris"},
+	{LANG_ES, "Eliminado de favoritos"},
 	{LANG_NL, "Verwijderd uit favs"},
 };
