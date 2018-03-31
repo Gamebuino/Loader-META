@@ -99,13 +99,6 @@ void detailedView() {
 			// center bar
 			gb.display.setColor(BROWN);
 			gb.display.fillRect(0, 15*gb.display.fontSize, 80*gb.display.fontSize, 9*gb.display.fontSize);
-			gb.display.setColor(DARKGRAY);
-			gb.display.drawFastHLine(0, 14*gb.display.fontSize, 80*gb.display.fontSize);
-			gb.display.drawFastHLine(0, 24*gb.display.fontSize, 80*gb.display.fontSize);
-			if (gb.display.fontSize > 1) {
-				gb.display.drawFastHLine(0, 14*gb.display.fontSize + 1, 80*gb.display.fontSize);
-				gb.display.drawFastHLine(0, 24*gb.display.fontSize + 1, 80*gb.display.fontSize);
-			}
 			
 			// game name
 			gb.display.setColor(WHITE);
@@ -123,7 +116,7 @@ void detailedView() {
 		uint8_t w = buttonsIcons.width() * scale;
 		uint8_t h = buttonsIcons.height() * scale;
 		uint8_t x = gb.display.width() - w;
-		uint8_t y = 2*gb.display.height()/3 - h;
+		uint8_t y = gb.display.height() - h;
 		gb.display.drawImage(x, y, buttonsIcons, w, h);
 
 		if (gb.buttons.pressed(BUTTON_A)) {
