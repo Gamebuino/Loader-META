@@ -95,7 +95,7 @@ const MultiLang lang_fav_added[] = {
 	{LANG_EN, "Added to favorites"},
 	{LANG_DE, "Favorit hinzugefügt"},
 	{LANG_FR, "Ajouté aux favoris"},
-	{LANG_ES, "Agregado a favoritos"},
+	{LANG_ES, "Favorito agregado"},
 	{LANG_NL, "Toegevoegd aan favs"},
 };
 
@@ -103,6 +103,6 @@ const MultiLang lang_fav_removed[] = {
 	{LANG_EN, "Removed favorite"},
 	{LANG_DE, "Favorit entfernt"},
 	{LANG_FR, "Retiré des favoris"},
-	{LANG_ES, "Eliminado de favoritos"},
+	{LANG_ES, "Favorito eliminado"},
 	{LANG_NL, "Verwijderd uit favs"},
 };
