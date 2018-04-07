@@ -47,7 +47,7 @@ const MultiLang lang_settings_enter_bootloader[] = {
 	{LANG_EN, "Enter bootloader"},
 	{LANG_DE, "Öffne Bootloader"},
 	{LANG_FR, "Enter bootloader"},
-	{LANG_ES, "Entrar al bootloader"},
+	{LANG_ES, "Abrir bootloader"},
 	{LANG_NL, "Open bootloader"},
 };
 
