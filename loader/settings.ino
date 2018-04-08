@@ -27,6 +27,9 @@ void settingsView() {
 	
 	uint8_t curLangIndex = 0;
 	for (;(curLangIndex < numLangEntries) && (langEntries[curLangIndex].code != gb.language.getCurrentLang()); curLangIndex++);
+	if (curLangIndex >= numLangEntries) {
+		curLangIndex = 0;
+	}
 	while(1) {
 		while(!gb.update());
 		
