@@ -118,7 +118,7 @@ void gridView() {
 	uint8_t cursorX = 0;
 	uint8_t cursorY = 0;
 
-  Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
+	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	while(1) {
 		while(!gb.update());
 		gb.display.clear();
@@ -205,7 +205,7 @@ void gridView() {
 			}
 		}
 
-    //blinking border on selected game
+		//blinking border on selected game
 		if ((gb.frameCount % 8) >= 4) {
 			gb.display.setColor(BROWN);
 			gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
@@ -295,9 +295,10 @@ void gridView() {
 			detailedView();
 			gridIndex = 0;
 			
-      gb.display.setColor(WHITE,BLACK);
+			gb.display.setColor(WHITE,BLACK);
 			gb.display.println(lang_loading);
 			gb.updateDisplay();
+			gb.display.init(80, 64, ColorMode::rgb565);
 			loadGridView();
 			cursorX = currentGame%2 ? 1 : 0;
 			if (currentGame < 2) {

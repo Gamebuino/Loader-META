@@ -124,7 +124,6 @@ void detailedView() {
 		}
 		
 		if (gb.buttons.pressed(BUTTON_B)) {
-			gb.display.init(80, 64, ColorMode::rgb565);
 			return;
 		}
 		
