@@ -235,7 +235,7 @@ void unfavoriteGame() {
 		if (strcmp(nameBuffer, identifier) == 0) {
 			moving = true;
 		} else if (moving) {
-			gb.save.set(SAVE_FAVOFFSET + i - i, nameBuffer);
+			gb.save.set(SAVE_FAVOFFSET + i - 1, nameBuffer);
 		}
 	}
 	gb.save.del(SAVE_FAVOFFSET + maxFavs - 1);

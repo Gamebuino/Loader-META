@@ -144,8 +144,7 @@ void detailedView() {
 			if (detailGameIsFav) {
 				unfavoriteGame();
 				gb.popup(gb.language.get(lang_fav_removed), 50);
-			} else {
-				favoriteGame();
+			} else if (favoriteGame()) {
 				gb.popup(gb.language.get(lang_fav_added), 50);
 			}
 			loadDetailedView();
