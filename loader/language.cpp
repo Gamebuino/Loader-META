@@ -106,3 +106,19 @@ const MultiLang lang_fav_removed[] = {
 	{LANG_ES, "Favorito eliminado"},
 	{LANG_NL, "Verwijderd uit favs"},
 };
+
+const MultiLang lang_languages[] = {
+	{LANG_EN, "English"},
+	{LANG_DE, "Deutsch"},
+	{LANG_FR, "Français"},
+	{LANG_ES, "Español"},
+	{LANG_NL, "Nederlands"},
+};
+
+const MultiLang lang_enter_name[] = {
+	{LANG_EN, "Enter name:"},
+	{LANG_DE, "Namen eingeben:"},
+	{LANG_FR, "Entrez le nom:"},
+	{LANG_ES, "Ingrese el nombre:"},
+	{LANG_NL, "Naam invoeren:"},
+};

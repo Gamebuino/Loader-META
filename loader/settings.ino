@@ -80,7 +80,7 @@ void settingsView() {
 			switch(cursor) {
 				case 0:
 					// change default name
-					gb.keyboard(defaultName, 13);
+					gb.gui.keyboard(lang_enter_name, defaultName);
 					gb.settings.set(SETTING_DEFAULTNAME, defaultName, 13);
 					break;
 				case 1:

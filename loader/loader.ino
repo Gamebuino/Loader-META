@@ -293,6 +293,73 @@ void loadGameFolderBlocks() {
 	loadGameFolderBlock(1, blocksLoaded[1]);
 }
 
+extern const uint8_t numLangEntries;
+extern const MultiLang langEntries[];
+
+void runInitialSetup() {
+	// first we let the user pick their language
+	uint8_t curLangIndex = 0;
+	for (;(curLangIndex < numLangEntries) && (langEntries[curLangIndex].code != gb.language.getCurrentLang()); curLangIndex++);
+	if (curLangIndex >= numLangEntries) {
+		curLangIndex = 0;
+	}
+	while (1) {
+		while(!gb.update());
+		gb.display.clear();
+		gb.display.drawBitmap(0, 2, GAMEBUINO_LOGO);
+		
+		const char* lang = gb.language.get(lang_settings_language);
+		const char* langstr = gb.language.get(lang_languages);
+		uint8_t lang_len = strlen(lang);
+		uint8_t langstr_len = strlen(langstr);
+		gb.display.setColor(WHITE);
+		gb.display.setCursor(40 - lang_len*2, 64/2 - 7);
+		gb.display.print(lang);
+		gb.display.setCursor(40 - langstr_len*2, 64/2 + 2);
+		gb.display.print(langstr);
+		gb.display.setColor(BROWN);
+		gb.display.drawFastHLine(0, 64/2, gb.display.width());
+		if ((gb.frameCount % 8) >= 4) {
+			gb.display.setCursor(40 - langstr_len*2 - 5, 64/2 + 2);
+			gb.display.print("<");
+			gb.display.setCursorX(40 + langstr_len*2 + 1);
+			gb.display.print(">");
+		}
+		
+		if (gb.buttons.pressed(BUTTON_RIGHT) || gb.buttons.pressed(BUTTON_LEFT)) {
+			if (gb.buttons.pressed(BUTTON_LEFT)) {
+				if (curLangIndex == 0) {
+					curLangIndex = numLangEntries - 1;
+				} else {
+					curLangIndex--;
+				}
+			} else {
+				curLangIndex++;
+				if (curLangIndex >= numLangEntries){
+					curLangIndex = 0;
+				}
+			}
+			gb.settings.set(SETTING_LANGUAGE, (int32_t)langEntries[curLangIndex].code);
+			gb.language.setCurrentLang(langEntries[curLangIndex].code);
+			gb.sound.playTick();
+		}
+		if (gb.buttons.pressed(BUTTON_A)) {
+			gb.sound.playOK();
+			break;
+		}
+	}
+	
+	// now we let them pick their default name
+	char defaultName[13];
+	gb.getDefaultName(defaultName);
+	gb.gui.keyboard(lang_enter_name, defaultName);
+	gb.settings.set(SETTING_DEFAULTNAME, defaultName, 13);
+	
+	// aaaand we are done with our setup
+	delay(300); // let the sound play
+	gb.settings.set(SETTING_SETUP, 1);
+}
+
 void setup() {
 	gb.begin();
 	gb.save.config(savefileDefaults);
@@ -334,6 +401,10 @@ void setup() {
 			}
 		}
 		RAM_FLAG_VALUE = 0; // make sure we don't get weird stuff
+	}
+	
+	if (gb.sdInited && !gb.settings.get(SETTING_SETUP)) {
+		runInitialSetup();
 	}
 	
 	gb.display.clear();
