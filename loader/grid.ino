@@ -117,6 +117,10 @@ void gridView() {
 	int8_t cameraY_actual = CAMERA_INITIAL;
 	uint8_t cursorX = 0;
 	uint8_t cursorY = 0;
+	
+	char defaultName[13];
+	gb.getDefaultName(defaultName);
+	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
 
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	while(1) {
@@ -203,6 +207,21 @@ void gridView() {
 			if (i >= PAGE_SIZE) {
 				i = 0;
 			}
+		}
+
+		if (currentGame >= lastEntryDivider) {
+			// draw the bottom text info thing
+			yy = cameraY_actual;
+			while (yy < -16) {
+				yy += 33;
+			}
+			gb.display.setColor(BROWN);
+			gb.display.drawFastHLine(0, yy + 70, gb.display.width());
+			gb.display.setColor(DARKGRAY);
+			gb.display.fillRect(0, yy+71, gb.display.width(), 7);
+			gb.display.setColor(WHITE);
+			gb.display.setCursor(1, yy+72);
+			gb.display.print(defaultName);
 		}
 
 		//blinking border on selected game
