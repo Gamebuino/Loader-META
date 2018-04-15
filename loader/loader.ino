@@ -339,7 +339,6 @@ void runInitialSetup() {
 					curLangIndex = 0;
 				}
 			}
-			gb.settings.set(SETTING_LANGUAGE, (int32_t)langEntries[curLangIndex].code);
 			gb.language.setCurrentLang(langEntries[curLangIndex].code);
 			gb.sound.playTick();
 		}
@@ -348,6 +347,7 @@ void runInitialSetup() {
 			break;
 		}
 	}
+	gb.settings.set(SETTING_LANGUAGE, (int32_t)langEntries[curLangIndex].code);
 	
 	// now we let them pick their default name
 	char defaultName[13];
