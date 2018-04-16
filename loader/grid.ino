@@ -121,6 +121,8 @@ void gridView() {
 	char defaultName[13];
 	gb.getDefaultName(defaultName);
 	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
+	
+	bool menuSelect = false;
 
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	while(1) {
@@ -217,18 +219,22 @@ void gridView() {
 				yy += 33;
 			}
 			gb.display.setColor(BROWN);
-			gb.display.drawFastHLine(0, yy + 70, gb.display.width());
+			gb.display.drawFastHLine(0, yy + 72, gb.display.width());
 			gb.display.setColor(DARKGRAY);
-			gb.display.fillRect(0, yy+71, gb.display.width(), 7);
+			gb.display.fillRect(0, yy+73, gb.display.width(), 7);
 			gb.display.setColor(WHITE);
-			gb.display.setCursor(1, yy+72);
+			gb.display.setCursor(1, yy+74);
 			gb.display.print(defaultName);
 		}
 
 		//blinking border on selected game
 		if ((gb.frameCount % 8) >= 4) {
 			gb.display.setColor(BROWN);
-			gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
+			if (menuSelect) {
+				gb.display.drawRect(0, yy+73, gb.display.width(), 7);
+			} else {
+				gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
+			}
 		}
 		
 		if (gb.buttons.repeat(BUTTON_LEFT, 4) || gb.buttons.repeat(BUTTON_RIGHT, 4)) {
@@ -242,7 +248,9 @@ void gridView() {
 		}
 		
 		if (gb.buttons.repeat(BUTTON_UP, 4) && totalGames > 2) {
-			if (currentGame >= 2) {
+			if (menuSelect) {
+				menuSelect = false;
+			} else if (currentGame >= 2) {
 				currentGame -= 2;
 				cursorY--;
 				if (currentGame <= 1) {
@@ -301,32 +309,40 @@ void gridView() {
 						gridIndex = 0;
 					}
 				}
-			} else {
+			} else if (menuSelect) {
 				// loop to top
+				menuSelect = false;
 				currentGame = cursorX;
 				cursorY = 0;
 				gridIndex = 0;
 				loadGridView();
 				cameraY = CAMERA_INITIAL;
+			} else {
+				menuSelect = true;
 			}
 		}
 		
 		if (gb.buttons.pressed(BUTTON_A)) {
-			detailedView();
-			gridIndex = 0;
-			
-			gb.display.setColor(WHITE,BLACK);
-			gb.display.println(lang_loading);
-			gb.updateDisplay();
-			gb.display.init(80, 64, ColorMode::rgb565);
-			loadGridView();
-			cursorX = currentGame%2 ? 1 : 0;
-			if (currentGame < 2) {
-				cursorY = 0;
-				cameraY = cameraY_actual = CAMERA_INITIAL;
+			if (menuSelect)  {
+				settingsView();
 			} else {
-				cursorY = 1;
-				cameraY = cameraY_actual = -16;
+				detailedView();
+				gridIndex = 0;
+				
+				gb.display.setColor(WHITE,BLACK);
+				gb.display.println(lang_loading);
+				gb.updateDisplay();
+				gb.display.init(80, 64, ColorMode::rgb565);
+				loadGridView();
+				menuSelect = false;
+				cursorX = currentGame%2 ? 1 : 0;
+				if (currentGame < 2) {
+					cursorY = 0;
+					cameraY = cameraY_actual = CAMERA_INITIAL;
+				} else {
+					cursorY = 1;
+					cameraY = cameraY_actual = -16;
+				}
 			}
 			continue; // else the next c-button-press will trigger
 		}
