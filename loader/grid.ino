@@ -190,6 +190,7 @@ void gridView() {
 				}
 				while (len > 0) {
 					strncpy(singleLine, n, 7);
+					singleLine[7] = '\0';
 					len -= 7;
 					n += 7;
 					gb.display.print(singleLine);
