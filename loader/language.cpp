@@ -116,9 +116,9 @@ const MultiLang lang_languages[] = {
 };
 
 const MultiLang lang_enter_name[] = {
-	{LANG_EN, "Enter name:"},
-	{LANG_DE, "Namen eingeben:"},
-	{LANG_FR, "Entrez le nom:"},
-	{LANG_ES, "Ingrese el nombre:"},
-	{LANG_NL, "Naam invoeren:"},
+	{LANG_EN, "What's your name?"},
+	{LANG_DE, "Wie heißen Sie?"},
+	{LANG_FR, "Quel est ton nom?"},
+	{LANG_ES, "¿Cuál es tu nombre?"},
+	{LANG_NL, "Wat is je naam?"},
 };
