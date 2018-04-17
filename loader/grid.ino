@@ -218,12 +218,10 @@ void gridView() {
 			while (yy < -16) {
 				yy += 33;
 			}
-			gb.display.setColor(BROWN);
-			gb.display.drawFastHLine(0, yy + 72, gb.display.width());
 			gb.display.setColor(DARKGRAY);
-			gb.display.fillRect(0, yy+73, gb.display.width(), 7);
+			gb.display.fillRect(1, yy+72, gb.display.width()-2, 7);
 			gb.display.setColor(WHITE);
-			gb.display.setCursor(1, yy+74);
+			gb.display.setCursor(40 - strlen(defaultName)*2, yy+73);
 			gb.display.print(defaultName);
 		}
 
@@ -231,7 +229,7 @@ void gridView() {
 		if ((gb.frameCount % 8) >= 4) {
 			gb.display.setColor(BROWN);
 			if (menuSelect) {
-				gb.display.drawRect(0, yy+73, gb.display.width(), 7);
+				gb.display.drawRect(0, yy+71, gb.display.width(), 9);
 			} else {
 				gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
 			}
@@ -280,6 +278,7 @@ void gridView() {
 				if (totalGames % 2 && cursorX == 1) {
 					currentGame -= 2;
 				}
+				menuSelect = true;
 				loadGridView();
 				cameraY = -16;
 			}
