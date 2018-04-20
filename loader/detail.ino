@@ -142,9 +142,9 @@ void detailedView() {
 		if (gb.buttons.pressed(BUTTON_MENU)) {
 			if (detailGameIsFav) {
 				unfavoriteGame();
-				gb.popup(gb.language.get(lang_fav_removed), 50);
+				gb.gui.popup(gb.language.get(lang_fav_removed), 50);
 			} else if (favoriteGame()) {
-				gb.popup(gb.language.get(lang_fav_added), 50);
+				gb.gui.popup(gb.language.get(lang_fav_added), 50);
 			}
 			loadDetailedView();
 			continue;

@@ -2,3 +2,4 @@
 #define LANGUAGE_DEFAULT_SIZE 5
 #define AUTOSHOW_TITLESCREEN 0
 #define FOLDER_NAME "loader"
+#define HOME_MENU_NO_EXIT 1
