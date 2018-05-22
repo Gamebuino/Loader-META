@@ -128,8 +128,14 @@ void settingsView() {
 				cursor = 0;
 			}
 		}
-		if (gb.buttons.pressed(BUTTON_MENU)) {
+		if (gb.buttons.released(BUTTON_MENU)) {
 			return;
 		}
+   
+    SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+    gb.tft.commandMode();
+    SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+    gb.tft.idleMode();
+    SPI.endTransaction();
 	}
 }
