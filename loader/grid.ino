@@ -123,7 +123,7 @@ void gridView() {
 	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
 
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
-  
+	
 	while(1) {
 		while(!gb.update());
 		gb.display.clear();
@@ -167,12 +167,12 @@ void gridView() {
 			}
 		}
 		if (currentGame <= 3) {
-      if (gb.metaMode.isActive()) {
-        Color c[8] = {WHITE, YELLOW, BEIGE, ORANGE, BROWN, ORANGE, BEIGE, YELLOW};
-        gb.display.setColor(c[gb.frameCount / 5 % 8]);
-      } else {
-        gb.display.setColor(WHITE);
-      }
+			if (gb.metaMode.isActive()) {
+				Color c[8] = {WHITE, YELLOW, BEIGE, ORANGE, BROWN, ORANGE, BEIGE, YELLOW};
+				gb.display.setColor(c[gb.frameCount / 5 % 8]);
+			} else {
+				gb.display.setColor(WHITE);
+			}
 			gb.display.drawBitmap(0, cameraY_actual - CAMERA_INITIAL + 2, GAMEBUINO_LOGO);
 		}
 		
@@ -183,12 +183,12 @@ void gridView() {
 		uint8_t cg = currentGame - cursorX - 2*cursorY;
 		for (uint8_t j = 0; j < PAGE_SIZE; j++) {
 			uint8_t xx = j % 2 ? ICON_WIDTH + 6 + 1 : 0 + 6;
-      int8_t shake_x = 0;
-      int8_t shake_y = 0;
-      if (gb.metaMode.isActive() && cg == currentGame) {
-        shake_x = random(-1, 2);
-        shake_y = random(-1, 2);
-      }
+			int8_t shake_x = 0;
+			int8_t shake_y = 0;
+			if (gb.metaMode.isActive() && cg == currentGame) {
+				shake_x = random(-1, 2);
+				shake_y = random(-1, 2);
+			}
 			if (gridViewEntries[i].mode == GridMode::icon) {
 				gb.display.drawImage(xx + shake_x, yy + shake_y, gridViewEntries[i].img);
 			} else if (gridViewEntries[i].mode == GridMode::name) {
@@ -237,7 +237,7 @@ void gridView() {
 			gb.display.setCursor(1, yy+72);
 			gb.display.print(defaultName);
 		}
-    if ((gb.frameCount % 8) >= 4 && !gb.metaMode.isActive()) {
+		if ((gb.frameCount % 8) >= 4 && !gb.metaMode.isActive()) {
 			gb.display.setColor(BROWN);
 			gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
 		}
@@ -345,11 +345,11 @@ void gridView() {
 		if (gb.buttons.released(BUTTON_MENU) && !gb.metaMode.isUsingHomeButton()) {
 			settingsView();
 		}
-    
-    SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
-    gb.tft.commandMode();
-    SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
-    gb.tft.idleMode();
-    SPI.endTransaction();
+	 
+		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+		gb.tft.commandMode();
+		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+		gb.tft.idleMode();
+		SPI.endTransaction();
 	}
 }

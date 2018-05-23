@@ -132,10 +132,10 @@ void settingsView() {
 			return;
 		}
    
-    SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
-    gb.tft.commandMode();
-    SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
-    gb.tft.idleMode();
-    SPI.endTransaction();
+		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+		gb.tft.commandMode();
+		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+		gb.tft.idleMode();
+		SPI.endTransaction();
 	}
 }
