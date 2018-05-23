@@ -125,6 +125,7 @@ void gridView() {
 	bool menuSelect = false;
 
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
+	
 	while(1) {
 		while(!gb.update());
 		gb.display.clear();
@@ -168,6 +169,12 @@ void gridView() {
 			}
 		}
 		if (currentGame <= 3) {
+			if (gb.metaMode.isActive()) {
+				Color c[8] = {WHITE, YELLOW, BEIGE, ORANGE, BROWN, ORANGE, BEIGE, YELLOW};
+				gb.display.setColor(c[gb.frameCount / 5 % 8]);
+			} else {
+				gb.display.setColor(WHITE);
+			}
 			gb.display.drawBitmap(0, cameraY_actual - CAMERA_INITIAL + 2, GAMEBUINO_LOGO);
 		}
 		
@@ -177,14 +184,20 @@ void gridView() {
 		
 		uint8_t cg = currentGame - cursorX - 2*cursorY;
 		for (uint8_t j = 0; j < PAGE_SIZE; j++) {
-			uint8_t xx = j % 2 ? 32 + 6 + 1 : 0 + 6;
+			uint8_t xx = j % 2 ? ICON_WIDTH + 6 + 1 : 0 + 6;
+			int8_t shake_x = 0;
+			int8_t shake_y = 0;
+			if (gb.metaMode.isActive() && cg == currentGame) {
+				shake_x = random(-1, 2);
+				shake_y = random(-1, 2);
+			}
 			if (gridViewEntries[i].mode == GridMode::icon) {
-				gb.display.drawImage(xx, yy, gridViewEntries[i].img);
+				gb.display.drawImage(xx + shake_x, yy + shake_y, gridViewEntries[i].img);
 			} else if (gridViewEntries[i].mode == GridMode::name) {
 				uint8_t blockOffset = cg / BLOCK_LENGTH;
 				uint8_t gameInBlock = cg % BLOCK_LENGTH;
 				uint8_t b = getBlock(blockOffset);
-				gb.display.setCursor(xx + 1, yy + 1);
+				gb.display.setCursor(xx + shake_x + 1, yy + shake_y + 1);
 				const char* n = gameFolders[b][gameInBlock] + 1;
 				int8_t len = strlen(n);
 				if (len > 7*4) {
@@ -197,13 +210,13 @@ void gridView() {
 					n += 7;
 					gb.display.print(singleLine);
 					gb.display.cursorY += 7;
-					gb.display.cursorX = xx + 1;
+					gb.display.cursorX = xx + shake_x + 1;
 				}
 			}
 			cg++;
 			
 			if (j % 2) {
-				yy += 33;
+				yy += ICON_HEIGHT + 1;
 			}
 			
 			i++;
@@ -224,9 +237,7 @@ void gridView() {
 			gb.display.setCursor(40 - strlen(defaultName)*2, yy+73);
 			gb.display.print(defaultName);
 		}
-
-		//blinking border on selected game
-		if ((gb.frameCount % 8) >= 4) {
+		if ((gb.frameCount % 8) >= 4 && !gb.metaMode.isActive()) {
 			gb.display.setColor(BROWN);
 			if (menuSelect) {
 				gb.display.drawRect(0, yy+71, gb.display.width(), 9);
@@ -346,8 +357,14 @@ void gridView() {
 			continue; // else the next c-button-press will trigger
 		}
 		
-		if (gb.buttons.pressed(BUTTON_MENU)) {
+		if (gb.buttons.released(BUTTON_MENU) && !gb.metaMode.isUsingHomeButton()) {
 			settingsView();
 		}
+	 
+		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+		gb.tft.commandMode();
+		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+		gb.tft.idleMode();
+		SPI.endTransaction();
 	}
 }
