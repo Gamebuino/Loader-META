@@ -119,27 +119,27 @@ void detailedView() {
 		uint8_t y = gb.display.height() - h;
 		gb.display.drawImage(x, y, buttonsIcons, w, h);
 
-		if (gb.buttons.pressed(BUTTON_A)) {
+		if (gb.buttons.released(BUTTON_A)) {
 			loadGame();
 		}
 		
-		if (gb.buttons.pressed(BUTTON_B)) {
+		if (gb.buttons.released(BUTTON_B)) {
 			return;
 		}
 		
-		if (gb.buttons.pressed(BUTTON_DOWN)) {
+		if (gb.buttons.released(BUTTON_DOWN)) {
 			galleryView(1);
 			loadDetailedView();
 			continue;
 		}
 		
-		if (gb.buttons.pressed(BUTTON_UP)) {
+		if (gb.buttons.released(BUTTON_UP)) {
 			galleryView(-1);
 			loadDetailedView();
 			continue;
 		}
 		
-		if (gb.buttons.pressed(BUTTON_MENU)) {
+		if (gb.buttons.released(BUTTON_MENU) && !gb.metaMode.isUsingHomeButton()) {
 			if (detailGameIsFav) {
 				unfavoriteGame();
 				gb.gui.popup(gb.language.get(lang_fav_removed), 50);
