@@ -77,6 +77,8 @@ void loadGame() {
 void detailedView() {
 	loadDetailedView();
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
+	bool MMActiveLastFrame = false;  // True if MM was engaged the previous frame
+	
 	while (1) {
 		while(!gb.update());
 		gb.display.fontSize = gb.display.width() == 80 ? 1 : 2;
@@ -119,6 +121,11 @@ void detailedView() {
 		uint8_t y = gb.display.height() - h;
 		gb.display.drawImage(x, y, buttonsIcons, w, h);
 
+		if (gb.metaMode.isActive() != MMActiveLastFrame) {
+			loadDetailedView();
+			MMActiveLastFrame = gb.metaMode.isActive();
+		}
+		
 		if (gb.buttons.released(BUTTON_A)) {
 			loadGame();
 		}
@@ -139,7 +146,7 @@ void detailedView() {
 			continue;
 		}
 		
-		if (gb.buttons.released(BUTTON_MENU) && !gb.metaMode.isUsingHomeButton()) {
+		if (gb.buttons.released(BUTTON_MENU)) {
 			if (detailGameIsFav) {
 				unfavoriteGame();
 				gb.gui.popup(gb.language.get(lang_fav_removed), 50);
@@ -149,5 +156,11 @@ void detailedView() {
 			loadDetailedView();
 			continue;
 		}
+
+		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+		gb.tft.commandMode();
+		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+		gb.tft.idleMode();
+		SPI.endTransaction();
 	}
 }

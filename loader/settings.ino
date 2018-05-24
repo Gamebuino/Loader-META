@@ -76,7 +76,7 @@ void settingsView() {
 		gb.display.print(".");
 		gb.display.println(bootloader_patch);
 		
-		if (gb.buttons.pressed(BUTTON_A)) {
+		if (gb.buttons.released(BUTTON_A)) {
 			switch(cursor) {
 				case 0:
 					// change default name
@@ -98,8 +98,8 @@ void settingsView() {
 		}
 		if (cursor == 2) {
 			// language
-			if (gb.buttons.pressed(BUTTON_A) || gb.buttons.pressed(BUTTON_RIGHT) || gb.buttons.pressed(BUTTON_LEFT)) {
-				if (gb.buttons.pressed(BUTTON_LEFT)) {
+			if (gb.buttons.released(BUTTON_A) || gb.buttons.released(BUTTON_RIGHT) || gb.buttons.released(BUTTON_LEFT)) {
+				if (gb.buttons.released(BUTTON_LEFT)) {
 					if (curLangIndex == 0) {
 						curLangIndex = numLangEntries - 1;
 					} else {
