@@ -332,7 +332,7 @@ void gridView() {
 			}
 		}
 		
-		if (gb.buttons.pressed(BUTTON_A)) {
+		if (gb.buttons.released(BUTTON_A)) {
 			if (menuSelect)  {
 				settingsView();
 			} else {
@@ -357,7 +357,7 @@ void gridView() {
 			continue; // else the next c-button-press will trigger
 		}
 		
-		if (gb.buttons.released(BUTTON_MENU) && !gb.metaMode.isUsingHomeButton()) {
+		if (gb.buttons.released(BUTTON_MENU)) {
 			settingsView();
 		}
 	 
