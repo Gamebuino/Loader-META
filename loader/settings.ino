@@ -80,7 +80,7 @@ void settingsView() {
 		gb.display.print(".");
 		gb.display.println(bootloader_patch);
 		
-		if (gb.buttons.pressed(BUTTON_A)) {
+		if (gb.buttons.released(BUTTON_A)) {
 			switch(cursor) {
 				case 0:
 					// change default name
@@ -106,8 +106,8 @@ void settingsView() {
 		}
 		if (cursor == 2) {
 			// language
-			if (gb.buttons.pressed(BUTTON_A) || gb.buttons.pressed(BUTTON_RIGHT) || gb.buttons.pressed(BUTTON_LEFT)) {
-				if (gb.buttons.pressed(BUTTON_LEFT)) {
+			if (gb.buttons.released(BUTTON_A) || gb.buttons.released(BUTTON_RIGHT) || gb.buttons.released(BUTTON_LEFT)) {
+				if (gb.buttons.released(BUTTON_LEFT)) {
 					if (curLangIndex == 0) {
 						curLangIndex = numLangEntries - 1;
 					} else {
@@ -136,9 +136,15 @@ void settingsView() {
 				cursor = 0;
 			}
 		}
-		if (gb.buttons.pressed(BUTTON_MENU)) {
+		if (gb.buttons.released(BUTTON_MENU)) {
 			return;
 		}
+   
+		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
+		gb.tft.commandMode();
+		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
+		gb.tft.idleMode();
+		SPI.endTransaction();
 	}
 }
 

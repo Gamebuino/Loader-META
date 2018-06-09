@@ -330,8 +330,8 @@ void runInitialSetup() {
 			gb.display.print(">");
 		}
 		
-		if (gb.buttons.pressed(BUTTON_RIGHT) || gb.buttons.pressed(BUTTON_LEFT)) {
-			if (gb.buttons.pressed(BUTTON_LEFT)) {
+		if (gb.buttons.released(BUTTON_RIGHT) || gb.buttons.released(BUTTON_LEFT)) {
+			if (gb.buttons.released(BUTTON_LEFT)) {
 				if (curLangIndex == 0) {
 					curLangIndex = numLangEntries - 1;
 				} else {
@@ -346,7 +346,7 @@ void runInitialSetup() {
 			gb.language.setCurrentLang(langEntries[curLangIndex].code);
 			gb.sound.playTick();
 		}
-		if (gb.buttons.pressed(BUTTON_A)) {
+		if (gb.buttons.released(BUTTON_A)) {
 			gb.sound.playOK();
 			break;
 		}
