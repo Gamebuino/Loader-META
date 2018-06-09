@@ -127,6 +127,11 @@ void gridView() {
 	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	while(1) {
 		while(!gb.update());
+		
+		if (testDemoMode()) {
+			demoMode();
+		}
+		
 		gb.display.clear();
 		if (!totalGames) {
 			gb.display.setColor(WHITE);

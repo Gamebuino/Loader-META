@@ -67,6 +67,38 @@ const MultiLang lang_settings_back[] = {
 	{LANG_NL, "Terug"},
 };
 
+const MultiLang lang_settings_more[] = {
+	{LANG_EN, "More..."},
+	{LANG_DE, "Mehr..."},
+	{LANG_FR, "Plus..."},
+	{LANG_ES, "Más..."},
+	{LANG_NL, "Meer..."},
+};
+
+const MultiLang lang_settings_demomode[] = {
+	{LANG_EN, "Demo Mode"},
+	{LANG_DE, "Demo Modus"},
+	{LANG_FR, "Demo Mode"},
+	{LANG_ES, "Demo Mode"},
+	{LANG_NL, "Demo Mode"},
+};
+
+const MultiLang lang_on[] = {
+	{LANG_EN, "on"},
+	{LANG_DE, "an"},
+	{LANG_FR, "on"},
+	{LANG_ES, "on"},
+	{LANG_NL, "on"},
+};
+
+const MultiLang lang_off[] = {
+	{LANG_EN, "off"},
+	{LANG_DE, "aus"},
+	{LANG_FR, "off"},
+	{LANG_ES, "off"},
+	{LANG_NL, "off"},
+};
+
 const MultiLang lang_versions[] = {
 	{LANG_EN, "Versions"},
 	{LANG_DE, "Versionen"},
@@ -121,4 +153,12 @@ const MultiLang lang_enter_name[] = {
 	{LANG_FR, "Quel est ton nom?"},
 	{LANG_ES, "¿Cuál es tu nombre?"},
 	{LANG_NL, "Wat is je naam?"},
+};
+
+const MultiLang lang_folder_names[] = {
+	{LANG_EN, "EN"},
+	{LANG_DE, "DE"},
+	{LANG_FR, "FR"},
+	{LANG_ES, "ES"},
+	{LANG_NL, "NL"},
 };

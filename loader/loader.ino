@@ -18,6 +18,7 @@ char folderName[MAX_FOLDER_NAME_LENGTH];
 char nameBuffer[NAMEBUFFER_LENGTH];
 char gameFolders[2][BLOCK_LENGTH][MAX_FOLDER_NAME_LENGTH];
 uint32_t currentGame = 0;
+const uint8_t SAVE_DEMO_MODE = 40;
 
 const uint8_t MAX_FAV_GAMES = 10;
 const uint8_t SAVE_NUM_FAVS = 0;
@@ -34,7 +35,10 @@ const SaveDefault savefileDefaults[] = {
 	{ 8, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
 	{ 9, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
 	{10, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
+	{ SAVE_DEMO_MODE, SAVETYPE_INT, 0, 0 },
 };
+
+extern bool demoModeActive;
 
 const uint8_t GAMEBUINO_LOGO[] = {80,10,
 	0b00111100,0b00111111,0b00111111,0b11110011,0b11110011,0b11110011,0b00110011,0b00111111,0b00111111,0b00011100,
@@ -363,7 +367,8 @@ void runInitialSetup() {
 void setup() {
 	gb.begin();
 	gb.save.config(savefileDefaults);
-//	SerialUSB.begin(115200);
+	demoModeActive = gb.save.get(SAVE_DEMO_MODE);
+	SerialUSB.begin(115200);
 //	while(!SerialUSB);
 	if ((RAM_FLAG_VALUE & 0xFFFF0000) == LOADER_MAGIC) {
 		uint16_t error = RAM_FLAG_VALUE & 0x0000FFFF;

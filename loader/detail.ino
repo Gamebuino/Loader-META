@@ -76,7 +76,7 @@ void loadGame() {
 
 void detailedView() {
 	loadDetailedView();
-	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
+	Image buttonsIcons(Gamebuino_Meta::buttonsIconsData);
 	while (1) {
 		while(!gb.update());
 		gb.display.fontSize = gb.display.width() == 80 ? 1 : 2;
