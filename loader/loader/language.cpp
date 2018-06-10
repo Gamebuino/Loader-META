@@ -78,7 +78,7 @@ const MultiLang lang_settings_more[] = {
 const MultiLang lang_settings_demomode[] = {
 	{LANG_EN, "Demo Mode"},
 	{LANG_DE, "Demo Modus"},
-	{LANG_FR, "Demo Mode"},
+	{LANG_FR, "Mode démo"},
 	{LANG_ES, "Demo Mode"},
 	{LANG_NL, "Demo Mode"},
 };
