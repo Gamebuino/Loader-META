@@ -1,7 +1,7 @@
 #include "language.h"
 
 int16_t demoInactivityCounter = 0;
-const int16_t demoSingleFrameDelay = 25*10; // 10 seconds
+const int16_t demoSingleFrameDelay = 25*4; // 0 seconds
 const int16_t demoStartDelay = 25*10; // 10 seconds
 bool demoModeActive;
 
@@ -17,6 +17,7 @@ bool testDemoMode() {
 	}
 	demoInactivityCounter++;
 	if (demoInactivityCounter > demoStartDelay) {
+    gb.gui.popup(gb.language.get(lang_settings_demomode), 50);
 		return true;
 	}
 	return false;
