@@ -10,7 +10,7 @@ const char LOADER_VERSION[] = "1.1.0";
 const uint32_t MAX_FOLDER_NAME_LENGTH = 40;
 const uint8_t NAMEBUFFER_LENGTH = (MAX_FOLDER_NAME_LENGTH*2);
 const uint8_t PAGE_SIZE = 6;
-const uint8_t PAGES_PER_BLOCK = 2;
+const uint8_t PAGES_PER_BLOCK = 1;
 const uint8_t BLOCK_LENGTH = (PAGE_SIZE * PAGES_PER_BLOCK);
 uint8_t blocksLoaded[2];
 uint32_t totalGames = 0;
@@ -35,7 +35,7 @@ const SaveDefault savefileDefaults[] = {
 	{ 8, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
 	{ 9, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
 	{10, SAVETYPE_BLOB, MAX_FOLDER_NAME_LENGTH, 0 },
-	{ SAVE_DEMO_MODE, SAVETYPE_INT, 0, 0 },
+	{ SAVE_DEMO_MODE, SAVETYPE_INT, 1, 0 },
 };
 
 extern bool demoModeActive;

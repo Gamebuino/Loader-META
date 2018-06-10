@@ -123,8 +123,6 @@ void gridView() {
 	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
 	
 	bool menuSelect = false;
-
-	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	
 	while(1) {
 		while(!gb.update());
@@ -365,7 +363,7 @@ void gridView() {
 		if (gb.buttons.released(BUTTON_MENU)) {
 			settingsView();
 		}
-	 
+	
 		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
 		gb.tft.commandMode();
 		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
