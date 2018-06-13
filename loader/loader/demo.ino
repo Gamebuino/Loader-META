@@ -2,7 +2,7 @@
 
 int16_t demoInactivityCounter = 0;
 const int16_t demoSingleFrameDelay = 25*4; // 4 seconds
-const int16_t demoStartDelay = 25*20; // 10 seconds
+const int16_t demoStartDelay = 25*20; // 20 seconds
 bool demoModeActive;
 
 bool testDemoMode() {
