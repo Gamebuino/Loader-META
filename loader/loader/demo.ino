@@ -2,19 +2,26 @@
 
 int16_t demoInactivityCounter = 0;
 const int16_t demoSingleFrameDelay = 25*4; // 4 seconds
-const int16_t demoStartDelay = 25*10; // 10 seconds
+const int16_t demoStartDelay = 25*20; // 10 seconds
 bool demoModeActive;
 
 bool testDemoMode() {
+  //quite if demo is disabled
 	if (!demoModeActive) {
 		return false;
 	}
+  //hold MENU to trigger demo mode
+  if(gb.buttons.held(BUTTON_MENU, 25)){
+    return true;
+  }
+  //check if no button is pressed
 	for (uint8_t i = 0; i < Gamebuino_Meta::NUM_BTN; i++) {
 		if (gb.buttons.states[i]) {
 			demoInactivityCounter = 0;
 			return false;
 		}
 	}
+  //if inactive for a while go in demo mode
 	demoInactivityCounter++;
 	if (demoInactivityCounter > demoStartDelay) {
 		return true;
@@ -23,10 +30,8 @@ bool testDemoMode() {
 }
 
 bool exitDemoMode() {
-	for (uint8_t i = 0; i < Gamebuino_Meta::NUM_BTN; i++) {
-		if (gb.buttons.states[i]) {
+	if(gb.buttons.released(BUTTON_A) | gb.buttons.released(BUTTON_B)) {
 			return true;
-		}
 	}
 	return false;
 }
