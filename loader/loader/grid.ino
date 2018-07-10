@@ -123,11 +123,14 @@ void gridView() {
 	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
 	
 	bool menuSelect = false;
-
-	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
 	
 	while(1) {
 		while(!gb.update());
+		
+		if (testDemoMode()) {
+			demoMode();
+		}
+		
 		gb.display.clear();
 		if (!totalGames) {
 			gb.display.setColor(WHITE);
@@ -225,7 +228,7 @@ void gridView() {
 			}
 		}
 
-		if (currentGame >= lastEntryDivider) {
+		if (menuSelect || currentGame >= lastEntryDivider) {
 			// draw the bottom text info thing
 			yy = cameraY_actual;
 			while (yy < -16) {
@@ -259,6 +262,9 @@ void gridView() {
 		if (gb.buttons.repeat(BUTTON_UP, 4) && totalGames > 2) {
 			if (menuSelect) {
 				menuSelect = false;
+				if (totalGames % 2 && cursorX == 1) {
+					cameraY += 33;
+				}
 			} else if (currentGame >= 2) {
 				currentGame -= 2;
 				cursorY--;
@@ -286,12 +292,13 @@ void gridView() {
 				gridIndex = 0;
 				cursorY = 1;
 				currentGame = (((totalGames + 1) / 2) * 2) - 2 + cursorX;
+				cameraY = -16;
 				if (totalGames % 2 && cursorX == 1) {
 					currentGame -= 2;
+					cameraY -= 33;
 				}
 				menuSelect = true;
 				loadGridView();
-				cameraY = -16;
 			}
 		}
 		
@@ -329,6 +336,9 @@ void gridView() {
 				cameraY = CAMERA_INITIAL;
 			} else {
 				menuSelect = true;
+				if (totalGames % 2 && cursorX == 1) {
+					cameraY -= 33;
+				}
 			}
 		}
 		
@@ -360,7 +370,7 @@ void gridView() {
 		if (gb.buttons.released(BUTTON_MENU)) {
 			settingsView();
 		}
-	 
+	
 		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
 		gb.tft.commandMode();
 		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);

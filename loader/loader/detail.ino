@@ -76,7 +76,7 @@ void loadGame() {
 
 void detailedView() {
 	loadDetailedView();
-	Image buttonsIcons = Image(Gamebuino_Meta::buttonsIconsData);
+	Image buttonsIcons(Gamebuino_Meta::buttonsIconsData);
 	bool MMActiveLastFrame = false;  // True if MM was engaged the previous frame
 	
 	while (1) {
