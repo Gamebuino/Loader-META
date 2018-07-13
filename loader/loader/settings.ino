@@ -9,13 +9,14 @@ const uint8_t settings_cursorPositions[] = {
 const uint8_t settings_numCursorPositions = 5;
 extern bool demoModeActive;
 
-const uint8_t numLangEntries = 5;
+const uint8_t numLangEntries = 6;
 const MultiLang langEntries[numLangEntries] = {
 	{LANG_EN, "en"},
 	{LANG_FR, "fr"},
 	{LANG_DE, "de"},
 	{LANG_ES, "es"},
 	{LANG_NL, "nl"},
+	{LANG_PL, "pl"},
 };
 
 
