@@ -21,7 +21,7 @@ void loadGridEntry(uint8_t i, uint32_t game) {
 	}
 	uint8_t blockOffset = game / BLOCK_LENGTH;
 	uint8_t gameInBlock = game % BLOCK_LENGTH;
-	
+
 	uint8_t b = getBlock(blockOffset);
 	strcpy(nameBuffer, gameFolders[b][gameInBlock]);
 	strcpy(nameBuffer + strlen(nameBuffer), "/ICON.BMP");
@@ -49,13 +49,13 @@ void loadGridEntry(uint8_t i, uint32_t game) {
 		if (valid) {
 			gridViewEntries[i].img.drawImage((ICON_WIDTH - 80) / 2, (ICON_HEIGHT - 64) / 2, gb.display);
 			gb.display.init(80, 64, ColorMode::rgb565);
-			
+
 			gridViewEntries[i].mode = GridMode::icon;
 			return;
-		} 
+		}
 		gb.display.init(80, 64, ColorMode::rgb565);
 	}
-	
+
 	// okay, maybe the user made a screenshot that we need to crop?
 	strcpy(nameBuffer + strlen(gameFolders[b][gameInBlock]), "/REC/");
 	if (SD.exists(nameBuffer)) {
@@ -76,9 +76,9 @@ void loadGridEntry(uint8_t i, uint32_t game) {
 			bool valid = gb.display.width() == 80 && gb.display.height() == 64;
 			if (valid) {
 				gridViewEntries[i].img.drawImage((ICON_WIDTH - 80) / 2, (ICON_HEIGHT - 64) / 2, gb.display);
-			} 
+			}
 			gb.display.init(80, 64, ColorMode::rgb565);
-			
+
 			gridViewEntries[i].mode = valid ? GridMode::icon : GridMode::name;
 			return;
 		}
@@ -117,20 +117,20 @@ void gridView() {
 	int8_t cameraY_actual = CAMERA_INITIAL;
 	uint8_t cursorX = 0;
 	uint8_t cursorY = 0;
-	
+
 	char defaultName[13];
 	gb.getDefaultName(defaultName);
 	uint32_t lastEntryDivider = totalGames - ((totalGames%2)?1:2);
-	
+
 	bool menuSelect = false;
-	
+
 	while(1) {
 		while(!gb.update());
-		
+
 		if (testDemoMode()) {
 			demoMode();
 		}
-		
+
 		gb.display.clear();
 		if (!totalGames) {
 			gb.display.setColor(WHITE);
@@ -140,7 +140,7 @@ void gridView() {
 			gb.display.println(lang_no_games);
 			continue;
 		}
-		
+
 		if (cameraY != cameraY_actual) {
 			int8_t dif = cameraY - cameraY_actual;
 			if (dif < 0) {
@@ -180,11 +180,11 @@ void gridView() {
 			}
 			gb.display.drawBitmap(0, cameraY_actual - CAMERA_INITIAL + 2, GAMEBUINO_LOGO);
 		}
-		
+
 		uint8_t i = gridIndex;
 		int16_t yy = cameraY_actual;
 		gb.display.setColor(WHITE);
-		
+
 		uint8_t cg = currentGame - cursorX - 2*cursorY;
 		for (uint8_t j = 0; j < PAGE_SIZE; j++) {
 			uint8_t xx = j % 2 ? ICON_WIDTH + 6 + 1 : 0 + 6;
@@ -217,11 +217,11 @@ void gridView() {
 				}
 			}
 			cg++;
-			
+
 			if (j % 2) {
 				yy += ICON_HEIGHT + 1;
 			}
-			
+
 			i++;
 			if (i >= PAGE_SIZE) {
 				i = 0;
@@ -248,8 +248,8 @@ void gridView() {
 				gb.display.drawRect(cursorX*33 + 6 - 1, cursorY*33 + cameraY_actual - 1, 34, 34);
 			}
 		}
-		
-		if (gb.buttons.repeat(BUTTON_LEFT, 4) || gb.buttons.repeat(BUTTON_RIGHT, 4)) {
+
+		if ((gb.buttons.repeat(BUTTON_LEFT, 4) || gb.buttons.repeat(BUTTON_RIGHT, 4)) && !menuSelect) {
 			if (cursorX == 1) {
 				cursorX = 0;
 				currentGame--;
@@ -258,7 +258,7 @@ void gridView() {
 				currentGame++;
 			}
 		}
-		
+
 		if (gb.buttons.repeat(BUTTON_UP, 4) && totalGames > 2) {
 			if (menuSelect) {
 				menuSelect = false;
@@ -301,7 +301,7 @@ void gridView() {
 				loadGridView();
 			}
 		}
-		
+
 		if (gb.buttons.repeat(BUTTON_DOWN, 4) && totalGames > 2) {
 			if (currentGame < totalGames - 2) {
 				currentGame += 2;
@@ -320,7 +320,7 @@ void gridView() {
 					uint32_t cg = (currentGame / 2) * 2;
 					loadGridEntry(gridIndex, cg + 2);
 					loadGridEntry(gridIndex + 1, cg + 3);
-					
+
 					gridIndex += 2;
 					if (gridIndex >= PAGE_SIZE) {
 						gridIndex = 0;
@@ -341,14 +341,14 @@ void gridView() {
 				}
 			}
 		}
-		
+
 		if (gb.buttons.released(BUTTON_A)) {
 			if (menuSelect)  {
 				settingsView();
 			} else {
 				detailedView();
 				gridIndex = 0;
-				
+
 				gb.display.setColor(WHITE,BLACK);
 				gb.display.println(lang_loading);
 				gb.updateDisplay();
@@ -366,11 +366,11 @@ void gridView() {
 			}
 			continue; // else the next c-button-press will trigger
 		}
-		
+
 		if (gb.buttons.released(BUTTON_MENU)) {
 			settingsView();
 		}
-	
+
 		SPI.beginTransaction(SPISettings(24000000, MSBFIRST, SPI_MODE0));
 		gb.tft.commandMode();
 		SPI.transfer(gb.metaMode.isActive() ? 0x21 : 0x20);
