@@ -1,7 +1,7 @@
 #include <Gamebuino-Meta.h>
 #include "language.h"
 
-const char LOADER_VERSION[] = "1.2.4";
+const char LOADER_VERSION[] = "1.2.5";
 
 #define RAM_FLAG_ADDRESS (0x20007FFCul)
 #define RAM_FLAG_VALUE (*((volatile uint32_t *)RAM_FLAG_ADDRESS))
