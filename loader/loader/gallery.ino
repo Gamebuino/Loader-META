@@ -10,19 +10,19 @@ void galleryView(int8_t direction) {
 		cache.read(&max, 4);
 		cache.close();
 	}
-	
+
 	strcpy(nameBuffer, getCurrentGameFolder());
 	strcpy(nameBuffer + strlen(nameBuffer), "/REC/00000.GMV");
 	uint8_t offset = strlen(nameBuffer) - 5;
 	uint8_t offsetStart = offset - 4;
-	
+
 	int32_t index;
 	if (direction > 0) {
 		index = -1;
 	} else {
 		index = max + 1;
 	}
-	
+
 	bool loaded = false;
 	while(1) {
 		while(!gb.update());
@@ -31,6 +31,7 @@ void galleryView(int8_t direction) {
 			do {
 				index += direction;
 				if (index < 0 || index > max) {
+					while (gb.buttons.repeat(BUTTON_DOWN, 0) || gb.buttons.repeat(BUTTON_UP, 0)) gb.update();
 					return;
 				}
 				memset(nameBuffer + offsetStart, '0', 5);
@@ -47,7 +48,7 @@ void galleryView(int8_t direction) {
 			direction = -1;
 			loaded = false;
 		}
-		if (gb.buttons.pressed(BUTTON_B)) {
+		if (gb.buttons.released(BUTTON_B)) {
 			return;
 		}
 	}
